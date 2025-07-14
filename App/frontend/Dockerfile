@@ -3,7 +3,7 @@ FROM node:18 AS build
 WORKDIR /app
 ENV NODE_OPTIONS=--openssl-legacy-provider
 COPY package*.json ./
-RUN npm install
+RUN npm install --verbose
 COPY . .
 RUN npm run build
 
