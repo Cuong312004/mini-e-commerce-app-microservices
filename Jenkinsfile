@@ -85,6 +85,7 @@ pipeline {
       }
     }
 
+
     stage('Clean up') {
       steps {
         sh 'docker logout $ACR_LOGIN_SERVER'
