@@ -24,43 +24,39 @@ pipeline {
       }
     }
 
-    stage('Build & Push Images') {
-      parallel {
-        stage('Auth Service') {
-          steps {
-            sh """
-              docker build -t $ACR_LOGIN_SERVER/auth-service:$IMAGE_TAG App/backend/auth-service
-              docker push $ACR_LOGIN_SERVER/auth-service:$IMAGE_TAG
-            """
-          }
-        }
+    stage('Build & Push: Auth Service') {
+      steps {
+        sh """
+          docker build --progress=plain -t $ACR_LOGIN_SERVER/auth-service:$IMAGE_TAG App/backend/auth-service
+          docker push $ACR_LOGIN_SERVER/auth-service:$IMAGE_TAG
+        """
+      }
+    }
 
-        stage('Product Service') {
-          steps {
-            sh """
-              docker build -t $ACR_LOGIN_SERVER/product-service:$IMAGE_TAG App/backend/product-service
-              docker push $ACR_LOGIN_SERVER/product-service:$IMAGE_TAG
-            """
-          }
-        }
+    stage('Build & Push: Product Service') {
+      steps {
+        sh """
+          docker build --progress=plain -t $ACR_LOGIN_SERVER/product-service:$IMAGE_TAG App/backend/product-service
+          docker push $ACR_LOGIN_SERVER/product-service:$IMAGE_TAG
+        """
+      }
+    }
 
-        stage('Order Service') {
-          steps {
-            sh """
-              docker build -t $ACR_LOGIN_SERVER/order-service:$IMAGE_TAG App/backend/order-service
-              docker push $ACR_LOGIN_SERVER/order-service:$IMAGE_TAG
-            """
-          }
-        }
+    stage('Build & Push: Order Service') {
+      steps {
+        sh """
+          docker build --progress=plain -t $ACR_LOGIN_SERVER/order-service:$IMAGE_TAG App/backend/order-service
+          docker push $ACR_LOGIN_SERVER/order-service:$IMAGE_TAG
+        """
+      }
+    }
 
-        stage('Frontend') {
-          steps {
-            sh """
-              docker build -t $ACR_LOGIN_SERVER/frontend:$IMAGE_TAG App/frontend
-              docker push $ACR_LOGIN_SERVER/frontend:$IMAGE_TAG
-            """
-          }
-        }
+    stage('Build & Push: Frontend') {
+      steps {
+        sh """
+          docker build --progress=plain -t $ACR_LOGIN_SERVER/frontend:$IMAGE_TAG App/frontend
+          docker push $ACR_LOGIN_SERVER/frontend:$IMAGE_TAG
+        """
       }
     }
 
