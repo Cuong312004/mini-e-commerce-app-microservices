@@ -60,14 +60,6 @@ pipeline {
       }
     }
 
-
-    stage('Clean up') {
-      steps {
-        sh 'docker logout $ACR_LOGIN_SERVER'
-        echo "All images built and pushed with tag: $IMAGE_TAG"
-      }
-    }
-
     stage('Update GitOps Repo') {
       steps {
         withCredentials([usernamePassword(credentialsId: 'github_cre', usernameVariable: 'GIT_USER', passwordVariable: 'GIT_PASS')]) {
@@ -90,6 +82,13 @@ pipeline {
             git push origin main
           '''
         }
+      }
+    }
+
+    stage('Clean up') {
+      steps {
+        sh 'docker logout $ACR_LOGIN_SERVER'
+        echo "All images built and pushed with tag: $IMAGE_TAG"
       }
     }
   }
