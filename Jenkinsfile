@@ -67,7 +67,7 @@ pipeline {
     stage('Clean up') {
       steps {
         sh 'docker logout $ACR_LOGIN_SERVER'
-        echo "✅ All images built and pushed with tag: $IMAGE_TAG"
+        echo "All images built and pushed with tag: $IMAGE_TAG"
       }
     }
   }
