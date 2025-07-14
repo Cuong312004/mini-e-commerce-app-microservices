@@ -10,7 +10,7 @@ pipeline {
   stages {
     stage('Checkout') {
       steps {
-        git credentialsId: 'github_cre', url: 'https://github.com/Cuong312004/mini-e-commerce-app-microservices.git'
+        git credentialsId: 'github_cre', url: 'https://github.com/Cuong312004/mini-e-commerce-app-microservices.git', branch: 'main',
       }
     }
 
