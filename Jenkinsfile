@@ -27,7 +27,7 @@ pipeline {
     stage('Build & Push: Auth Service') {
       steps {
         sh """
-          docker build --progress=plain -t $ACR_LOGIN_SERVER/auth-service:$IMAGE_TAG App/backend/auth-service
+          docker build -t $ACR_LOGIN_SERVER/auth-service:$IMAGE_TAG App/backend/auth-service
           docker push $ACR_LOGIN_SERVER/auth-service:$IMAGE_TAG
         """
       }
@@ -36,7 +36,7 @@ pipeline {
     stage('Build & Push: Product Service') {
       steps {
         sh """
-          docker build --progress=plain -t $ACR_LOGIN_SERVER/product-service:$IMAGE_TAG App/backend/product-service
+          docker build -t $ACR_LOGIN_SERVER/product-service:$IMAGE_TAG App/backend/product-service
           docker push $ACR_LOGIN_SERVER/product-service:$IMAGE_TAG
         """
       }
@@ -45,7 +45,7 @@ pipeline {
     stage('Build & Push: Order Service') {
       steps {
         sh """
-          docker build --progress=plain -t $ACR_LOGIN_SERVER/order-service:$IMAGE_TAG App/backend/order-service
+          docker build -t $ACR_LOGIN_SERVER/order-service:$IMAGE_TAG App/backend/order-service
           docker push $ACR_LOGIN_SERVER/order-service:$IMAGE_TAG
         """
       }
