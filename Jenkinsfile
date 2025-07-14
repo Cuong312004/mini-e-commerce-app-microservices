@@ -54,7 +54,7 @@ pipeline {
     stage('Build & Push: Frontend') {
       steps {
         sh """
-          docker build --progress=plain -t $ACR_LOGIN_SERVER/frontend:$IMAGE_TAG App/frontend
+          docker build -t $ACR_LOGIN_SERVER/frontend:$IMAGE_TAG App/frontend
           docker push $ACR_LOGIN_SERVER/frontend:$IMAGE_TAG
         """
       }
