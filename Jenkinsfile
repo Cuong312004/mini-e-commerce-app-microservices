@@ -66,7 +66,7 @@ pipeline {
           sh '''
             rm -rf DevSecOps-e-commerce-app
             git clone https://$GIT_PASS@github.com/Cuong312004/DevSecOps-e-commerce-app.git
-            cd argocd/base
+            cd DevSecOps-e-commerce-app/argocd/base
 
             # Update image tag in each deployment
             sed -i "s|auth-service:.*|auth-service:$IMAGE_TAG|g" auth-service/deployment.yaml
