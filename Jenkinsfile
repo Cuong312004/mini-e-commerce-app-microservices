@@ -65,8 +65,7 @@ pipeline {
         withCredentials([usernamePassword(credentialsId: 'github_cre', usernameVariable: 'GIT_USER', passwordVariable: 'GIT_PASS')]) {
           sh '''
             rm -rf DevSecOps-e-commerce-app
-            GIT_ENCODED_USER=$(echo "$GIT_USER" | sed 's/@/%40/g')
-            git clone https://$GIT_USER:$GIT_PASS@github.com/Cuong312004/DevSecOps-e-commerce-app.git
+            git clone https://$GIT_PASS@github.com/Cuong312004/DevSecOps-e-commerce-app.git
             cd argocd/base
 
             # Update image tag in each deployment
