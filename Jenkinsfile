@@ -67,5 +67,30 @@ pipeline {
         echo "All images built and pushed with tag: $IMAGE_TAG"
       }
     }
+
+    stage('Update GitOps Repo') {
+      steps {
+        withCredentials([usernamePassword(credentialsId: 'github_cre', usernameVariable: 'GIT_USER', passwordVariable: 'GIT_PASS')]) {
+          sh '''
+            rm -rf DevSecOps-e-commerce-app
+            git clone https://$GIT_USER:$GIT_PASS@github.com/Cuong312004/DevSecOps-e-commerce-app.git
+            cd argocd/base
+
+            # Update image tag in each deployment
+            sed -i "s|auth-service:.*|auth-service:$IMAGE_TAG|g" auth-service/deployment.yaml
+            sed -i "s|product-service:.*|product-service:$IMAGE_TAG|g" product-service/deployment.yaml
+            sed -i "s|order-service:.*|order-service:$IMAGE_TAG|g" order-service/deployment.yaml
+            sed -i "s|frontend:.*|frontend:$IMAGE_TAG|g" frontend/deployment.yaml
+
+            git config user.email "jenkins@auto.com"
+            git config user.name "Jenkins"
+
+            git add .
+            git commit -m "Update image tag to $IMAGE_TAG from Jenkins build #$BUILD_NUMBER"
+            git push origin main
+          '''
+        }
+      }
+    }
   }
 }
