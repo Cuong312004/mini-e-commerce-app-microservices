@@ -13,7 +13,7 @@ pipeline {
         git credentialsId: 'github_cre', url: 'https://github.com/Cuong312004/mini-e-commerce-app-microservices.git', branch: 'main'
       }
     }
-
+    
     stage('SonarQube Analysis') {
       steps {
         withSonarQubeEnv('SonarQube') {
@@ -24,7 +24,7 @@ pipeline {
         }
       }
     }
-
+    
     stage('Login to ACR') {
       steps {
         withCredentials([usernamePassword(credentialsId: 'acr_cre', usernameVariable: 'ACR_USER', passwordVariable: 'ACR_PASS')]) {
