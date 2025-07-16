@@ -24,6 +24,8 @@ pipeline {
         }
       }
     }
+
+    
     
     stage('Login to ACR') {
       steps {
